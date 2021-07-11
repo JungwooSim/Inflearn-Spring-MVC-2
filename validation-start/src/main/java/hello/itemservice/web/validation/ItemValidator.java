@@ -10,7 +10,11 @@ import org.springframework.validation.Validator;
 @Slf4j
 @Component
 public class ItemValidator implements Validator {
-
+    /**
+     * Validator 이 여러개 일때 구분해주는 역할 해줌
+     * @param clazz
+     * @return
+     */
     @Override
     public boolean supports(Class<?> clazz) {
         return Item.class.isAssignableFrom(clazz);
@@ -19,12 +23,6 @@ public class ItemValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Item item = (Item) target;
-
-        // 아래에 있는 bindingResult를 코드 위로 가져와서 사용 가능
-//        if (bindingResult.hasErrors()) {
-//            log.info("errors = {}", bindingResult);
-//            return "validation/v2/addForm";
-//        }
 
         // 아래 대체 가능 (편리 기능, 간단한 기능만 제공)
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "itemName","required");
