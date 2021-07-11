@@ -152,6 +152,12 @@ public class ValidationItemControllerV2 {
     @PostMapping("/add")
     public String addItemV4(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
+        // 아래에 있는 bindingResult를 코드 위로 가져와서 사용 가능
+//        if (bindingResult.hasErrors()) {
+//            log.info("errors = {}", bindingResult);
+//            return "validation/v2/addForm";
+//        }
+
         // 아래 대체 가능 (편리 기능, 간단한 기능만 제공)
         ValidationUtils.rejectIfEmptyOrWhitespace(bindingResult, "itemName","required");
 
