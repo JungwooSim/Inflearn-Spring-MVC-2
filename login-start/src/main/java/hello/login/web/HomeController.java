@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -59,7 +60,7 @@ public class HomeController {
         return "loginHome";
     }
 
-    @GetMapping("/")
+//    @GetMapping("/")
     public String homeLoginV3(HttpServletRequest request, Model model) {
 
         HttpSession session = request.getSession(false); // 세션은 메모리를 사용한다. 그렇기 때문에 의도하지 않은 세션은 생성조차 안하는 것이 좋다.
@@ -77,6 +78,20 @@ public class HomeController {
 
         // 세션에 회원이 있다면
         model.addAttribute("member", member);
+        return "loginHome";
+    }
+
+    @GetMapping("/")
+    public String homeLoginV3Spring(
+            @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, Model model
+    ) {
+        // 세션에 회원이 없으면 home
+        if (loginMember == null) {
+            return "home";
+        }
+
+        // 세션에 회원이 있다면
+        model.addAttribute("member", loginMember);
         return "loginHome";
     }
 }
