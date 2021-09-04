@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ItemSaveForm {
 
-    @NotBlank
+    @NotBlank(message = "{NotBlank.itemSaveForm.itemName}")
     private String itemName;
 
     @NotNull
